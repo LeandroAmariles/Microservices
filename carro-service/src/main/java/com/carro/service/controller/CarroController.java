@@ -22,7 +22,7 @@ public class CarroController {
             return  ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(carros);
-        .
+
     }
     @GetMapping("/usuario/{id_usuario}")
     public ResponseEntity<List<Carro>> listaDeCarrosPorIdUsuario(@PathVariable int id_usuario){
