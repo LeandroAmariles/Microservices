@@ -5,12 +5,22 @@ public class Moto {
     private String marca;
     private String modelo;
 
+    private int usuarioId;
+
     public Moto(){
 
     }
 
     public String getMarca() {
         return marca;
+    }
+
+    public int getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public void setMarca(String marca) {
