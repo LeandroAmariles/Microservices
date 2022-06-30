@@ -51,7 +51,7 @@ public class UsuarioService {
     }
 
     public List<Carro> obtenerCarroporIdUsuario(int usuarioId){
-        List<Carro> carros = carroFeignClient.getCarro(usuarioId);
+        List<Carro> carros = carroFeignClient.getCarros(usuarioId);
         return carros;
     }
 
@@ -77,7 +77,33 @@ public class UsuarioService {
             return resultado;
         }
         resultado.put("Usuario", usuario);
-        List<Carro> carros = carroFeignClient.getCarro(usuarioId);
+        List<Carro> carros= restTemplate.getForObject("http://localhost:8002/carro/usuario/"+ usuarioId, List.class);
+        if(carros.isEmpty()){
+            resultado.put("Carros", "El usuario no tiene carros");
+        }else {
+            resultado.put("Carros",carros);
+        }
+        List<Moto> motos= restTemplate.getForObject("http://localhost:8003/moto/usuario/"+ usuarioId, List.class);
+        if(motos.isEmpty()){
+            resultado.put("Motos","El usuario no tiene motos");
+        }else{
+            resultado.put("Motos", motos);
+        }
+        return resultado;
+    }
+
+/**
+ * Codigo para obtener Mapa de todos los vehiculos de un usuario usando FeignClient
+ */
+    /*public Map<String, Object> getUsuarioAndVehicles(int usuarioId){
+        Map<String,Object> resultado = new HashMap<>();
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
+        if(usuario == null){
+            resultado.put("Mensaje","El usuario no existe");
+            return resultado;
+        }
+        resultado.put("Usuario", usuario);
+        List<Carro> carros = carroFeignClient.getCarros(usuarioId);
         if(carros.isEmpty()){
             resultado.put("Carros", "El usuario no tiene carros");
         }else {
@@ -90,6 +116,6 @@ public class UsuarioService {
             resultado.put("Motos", motos);
         }
         return resultado;
-    }
+    }*/
 
 }

@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuario")
@@ -65,5 +67,18 @@ public class UsuarioController {
         return ResponseEntity.ok(nuevoCarro);
 
     }
+    @PostMapping("/moto/{usuarioId}")
+    public ResponseEntity<Moto> guardarMoto(@PathVariable int usuarioId, @RequestBody Moto moto){
+        Moto nuevaMoto = usuarioService.saveMoto(usuarioId,moto);
+        return ResponseEntity.ok(nuevaMoto);
+    }
+
+    @GetMapping("/todos/{usuarioId}")
+    public ResponseEntity<Map<String, Object>> listarTodosLosVehiculos(@PathVariable int usuarioId){
+        Map<String,Object> resultado = usuarioService.getUsuarioAndVehicles(usuarioId);
+        return ResponseEntity.ok(resultado);
+
+    }
+
 
 }
